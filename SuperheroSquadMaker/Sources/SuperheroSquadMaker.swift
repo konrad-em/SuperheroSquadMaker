@@ -4,7 +4,7 @@ import SwiftUI
 struct SuperheroSquadMaker: App {
     var body: some Scene {
         WindowGroup {
-            EmptyView()
+            Root.make()
         }
     }
 }
