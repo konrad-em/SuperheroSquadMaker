@@ -69,6 +69,9 @@
 		A0D9FEB725868513001C26BD /* View+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D9FD7E2583EC3A001C26BD /* View+Extensions.swift */; };
 		A0D9FEBD25868659001C26BD /* Data+Fixture.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D9FEBC25868659001C26BD /* Data+Fixture.swift */; };
 		A0F6A5332586BF22000A2A22 /* FakeError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0F6A5322586BF22000A2A22 /* FakeError.swift */; };
+		A0F6A53B2586C200000A2A22 /* Config-Default.plist in Resources */ = {isa = PBXBuildFile; fileRef = A0F6A53A2586C200000A2A22 /* Config-Default.plist */; };
+		A0F6A5412586C244000A2A22 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0F6A5402586C244000A2A22 /* Config.swift */; };
+		A0F6A5452586C2EE000A2A22 /* RequestConvertible+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0F6A5442586C2EE000A2A22 /* RequestConvertible+Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -166,6 +169,9 @@
 		A0D9FEBC25868659001C26BD /* Data+Fixture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+Fixture.swift"; sourceTree = "<group>"; };
 		A0DF450825829D4800134034 /* Data.Resource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Data.Resource.swift; sourceTree = "<group>"; };
 		A0F6A5322586BF22000A2A22 /* FakeError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeError.swift; sourceTree = "<group>"; };
+		A0F6A53A2586C200000A2A22 /* Config-Default.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Config-Default.plist"; sourceTree = "<group>"; };
+		A0F6A5402586C244000A2A22 /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
+		A0F6A5442586C2EE000A2A22 /* RequestConvertible+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RequestConvertible+Extensions.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -311,6 +317,19 @@
 			path = API;
 			sourceTree = "<group>";
 		};
+		A0CFBDBB2586C51F00036639 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				A0379E44257EDE91008C68C7 /* SuperheroSquadMaker.swift */,
+				A0F6A5442586C2EE000A2A22 /* RequestConvertible+Extensions.swift */,
+				A0CFE8A12582164600CDFFA4 /* Color+Extensions.swift */,
+				A0D9FE422586225E001C26BD /* CGFloat+Extensions.swift */,
+				A0D9FE4A25862275001C26BD /* Image+Extensions.swift */,
+				A0D9FD982583FC01001C26BD /* Localization+Extensions.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
 		A0CFE69D258124E400CDFFA4 /* MD5 */ = {
 			isa = PBXGroup;
 			children = (
@@ -355,11 +374,8 @@
 		A0CFE6E32581272500CDFFA4 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				A0379E44257EDE91008C68C7 /* SuperheroSquadMaker.swift */,
-				A0CFE8A12582164600CDFFA4 /* Color+Extensions.swift */,
-				A0D9FE422586225E001C26BD /* CGFloat+Extensions.swift */,
-				A0D9FE4A25862275001C26BD /* Image+Extensions.swift */,
-				A0D9FD982583FC01001C26BD /* Localization+Extensions.swift */,
+				A0CFBDBB2586C51F00036639 /* App */,
+				A0F6A5392586C1EA000A2A22 /* Config */,
 				A0379E61257F6F8C008C68C7 /* Root */,
 				A0CFE6AD258126BD00CDFFA4 /* Details */,
 				A0379F79257FD216008C68C7 /* HeroProvider */,
@@ -458,6 +474,15 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		A0F6A5392586C1EA000A2A22 /* Config */ = {
+			isa = PBXGroup;
+			children = (
+				A0F6A5402586C244000A2A22 /* Config.swift */,
+				A0F6A53A2586C200000A2A22 /* Config-Default.plist */,
+			);
+			path = Config;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -480,6 +505,7 @@
 				A0379E3F257EDE91008C68C7 /* Resources */,
 				A0379E59257F6E1F008C68C7 /* SwiftLint */,
 				A0379E7A257F6F8C008C68C7 /* Embed Frameworks */,
+				A0F6A5382586C1C0000A2A22 /* Generate Config */,
 			);
 			buildRules = (
 			);
@@ -590,6 +616,7 @@
 			files = (
 				A0379E4C257EDE91008C68C7 /* Preview Assets.xcassets in Resources */,
 				A0D9FD8E2583FB9F001C26BD /* Localizable.strings in Resources */,
+				A0F6A53B2586C200000A2A22 /* Config-Default.plist in Resources */,
 				A0379E49257EDE91008C68C7 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -629,6 +656,24 @@
 			shellPath = /bin/sh;
 			shellScript = "if which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
 		};
+		A0F6A5382586C1C0000A2A22 /* Generate Config */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Generate Config";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n# Different files may be set for different environments.\nCONFIG_DEFAULT_PATH=\"${SRCROOT}/SuperheroSquadMaker/Sources/Config/Config-Default.plist\"\nCONFIG_OUTPUT_PATH=\"${SRCROOT}/SuperheroSquadMaker/Sources/Config/Config.swift\"\n\nset -e\n\nif [ ! -f \"${CONFIG_DEFAULT_PATH}\" ]\nthen\n# Safety - otherwise a build may be made with the wrong config file\necho \"Missing default config file Config-Default\"\nexit 2\nfi\n\nswift_code() {\n\ncat <<EOF\nimport Foundation\n\nlet defaultParameters = NSDictionary(contentsOfFile: \"$CONFIG_DEFAULT_PATH\") as! [String : Any]\n\nfunc paramValue(_ param: Any) -> String {\n    switch param {\n        case let value as Bool: return value ? \"true\" : \"false\"\n        case let value as String: return \"\\\"\\(value)\\\"\"\n        case let value as Date: return \"Date(timeIntervalSince1970: \\(value.timeIntervalSince1970))\"\n        default: return \"\\(param)\"\n    }\n}\n\nlet params = defaultParameters.mapValues { paramValue(\\$0) }\n\nlet configExtension = \"\"\"\n//! This file was generated by a RunScript Build Phase\n//! ⚠️ Do not modify or commit ⚠️\n\nimport Foundation\n\nstruct Config {\n\\(params.map { \"\\\\\\tstatic let \\(\\$0) = \\(\\$1)\" }.joined(separator: \"\\\\\\n\"))\n}\n\n\"\"\"\ntry! configExtension.write(toFile: \"$CONFIG_OUTPUT_PATH\", atomically: true, encoding: .utf8)\nEOF\n}\n\n# Run the Swift code in swift_code()\necho \"$(swift_code)\" \\\n| DEVELOPER_DIR=\"$DEVELOPER_DIR\" \\\nxcrun --sdk macosx \\\n\"$TOOLCHAIN_DIR/usr/bin/\"swift -\n";
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -652,7 +697,9 @@
 				A0D9FE612586245F001C26BD /* Details.ComicElement.swift in Sources */,
 				A0D9FE6925863480001C26BD /* Comic.Details.Resource.swift in Sources */,
 				A0D9FD992583FC01001C26BD /* Localization+Extensions.swift in Sources */,
+				A0F6A5452586C2EE000A2A22 /* RequestConvertible+Extensions.swift in Sources */,
 				A0D9FDE32584D9EF001C26BD /* Root.ListHeroView.swift in Sources */,
+				A0F6A5412586C244000A2A22 /* Config.swift in Sources */,
 				A0D9FEA925868495001C26BD /* Collection+Extensions.swift in Sources */,
 				A0D9FC7B2583BC1F001C26BD /* Root.swift in Sources */,
 				A0D9FDB32584D65C001C26BD /* Comic.swift in Sources */,
