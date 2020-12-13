@@ -11,6 +11,9 @@ extension HeroProvider {
         squadHeros: @escaping () -> AnyPublisher<[Hero], HeroProvider.Error> = {
             .init(value: [.fixture()])
         },
+        comicDetails: @escaping (Comic) -> AnyPublisher<Comic.Details, HeroProvider.Error> = { _ in
+            .init(value: .fixture())
+        },
         store: @escaping ([Hero]) -> AnyPublisher<Void, HeroProvider.Error> = { _ in
             .init(value: ())
         },
@@ -20,6 +23,7 @@ extension HeroProvider {
     ) -> HeroProviding {
         .init(
             allHeros: allHeros,
+            comicDetails: comicDetails,
             squadHeros: squadHeros,
             store: store,
             imageData: imageData

@@ -9,6 +9,7 @@ extension Thumbnail {
     enum Size: String {
         case large = "detail"
         case small = "standard_medium"
+        case portrait = "portrait_fantastic"
     }
 
     func path(size: Size) -> String {

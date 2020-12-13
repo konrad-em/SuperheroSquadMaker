@@ -12,74 +12,82 @@ extension Details {
 
         var body: some View {
             GeometryReader { geometry in
-                ZStack(alignment: .top) {
-                    ScrollView {
-                        VStack(alignment: .leading) {
-                            Image.with(viewModel.image)
-                                .resizable()
-                                .frame(
-                                    width: geometry.size.width,
-                                    height: geometry.size.width
-                                )
+                ScrollView {
+                    VStack(alignment: .leading) {
+                        Image.with(viewModel.image)
+                            .resizable()
+                            .frame(
+                                width: geometry.size.width,
+                                height: geometry.size.width
+                            )
 
-                            Text(viewModel.hero.name)
-                                .font(.largeTitle)
-                                .fontWeight(.bold)
-                                .foregroundColor(.white)
-                                .padding(.all, .medium)
+                        Text(viewModel.hero.name)
+                            .font(.largeTitle)
+                            .fontWeight(.bold)
+                            .foregroundColor(.white)
+                            .padding(.all, .medium)
 
-                            Button(action: {
-                                viewModel.send(.ui(.didTapButton))
-                            }) {
-                                Text(
-                                    viewModel.isSquadMember
-                                        ? Localization.Details.fire
-                                        : Localization.Details.hire
-                                )
-                                    .font(.title3)
-                                    .fontWeight(.semibold)
+                        Button(action: {
+                            viewModel.send(.ui(.didTapButton))
+                        }) {
+                            Text(
+                                viewModel.isSquadMember
+                                    ? Localization.Details.fire
+                                    : Localization.Details.hire
+                            )
+                                .font(.title3)
+                                .fontWeight(.semibold)
+                        }
+                        .padding(.horizontal, .medium)
+                        .buttonStyle(FireOrHireButtonStyle(isSquadMember: viewModel.isSquadMember))
+
+                        Text(viewModel.hero.description)
+                            .foregroundColor(.white)
+                            .font(.title3)
+                            .fontWeight(.regular)
+                            .padding(.all, .medium)
+
+                        if viewModel.hero.comics.items.isNotEmpty {
+                            ComicsView {
+                                ForEach(viewModel.visibleComics, id: \.self) { comic in
+                                    ComicView(viewModel: viewModel.comicViewModel(comic: comic))
+                                }
                             }
-                                .padding(.horizontal, .medium)
-                                .buttonStyle(FireOrHireButtonStyle(isSquadMember: viewModel.isSquadMember))
 
-                            Text(viewModel.hero.description)
+                            Text(
+                                viewModel.numberOfRemainingComics > 1
+                                    ? Localization.Details.andOtherComics(viewModel.numberOfRemainingComics)
+                                    : Localization.Details.andOneOtherComic
+                            )
                                 .foregroundColor(.white)
                                 .font(.title3)
                                 .fontWeight(.regular)
-                                .padding(.all, .medium)
-
-                            if viewModel.hero.comics.items.last != nil {
-                                ComicsView {
-                                    ForEach(viewModel.hero.comics.items, id: \.self) { item in
-                                        ComicView(comic: item)
-                                    }
-                                }
-                            }
+                                .padding(.all, .small)
+                                .padding(.bottom, .large)
+                                .frame(maxWidth: .infinity, alignment: .center)
                         }
-                        .navigationBarBackButtonHidden(true)
-                        .toolbar {
-                            ToolbarItem(placement: .navigationBarLeading) {
-                                Button(action: { mode.wrappedValue.dismiss() }) {
-                                    Image(.back)
-                                }
+                    }
+                    .navigationBarBackButtonHidden(true)
+                    .toolbar {
+                        ToolbarItem(placement: .navigationBarLeading) {
+                            Button(action: { mode.wrappedValue.dismiss() }) {
+                                Image(.back)
                             }
                         }
                     }
-
-                    StatusBarBlur(width: geometry.size.width).ignoresSafeArea()
                 }
             }
-            .onAppear { viewModel.send(.ui(.didAppear)) }
+            .onAppear { viewModel.send(.onAppear) }
             .navigationBarColor(.clear)
             .background(Color.background)
             .ignoresSafeArea()
             .alert(isPresented:
-                    Binding(
-                        get: { viewModel.isPresentingAlert },
-                        set: { _ in viewModel.send(.ui(.didDismissAlert)) }
-                    )
+                Binding(
+                    get: { viewModel.isPresentingAlert },
+                    set: { _ in viewModel.send(.ui(.didDismissAlert)) }
+                )
             ) {
-                 Alert(
+                Alert(
                     title: Text(Localization.Details.confirm(viewModel.hero.name)),
                     primaryButton: .destructive(Text(Localization.Details.delete)) {
                         viewModel.send(.ui(.didTapConfirm))

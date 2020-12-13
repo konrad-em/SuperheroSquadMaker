@@ -23,6 +23,7 @@ enum Root {
         init(
             heroProvider: HeroProviding = HeroProvider(
                 heroApi: HeroAPI.live,
+                comicDetailsApi: ComicDetailsAPI.live,
                 imageApi: ImageAPI.live,
                 squadCache: SquadCache.live,
                 imageCache: ImageCache.live
@@ -44,19 +45,17 @@ enum Root {
         var squad: [Hero] = []
         var heros: [Hero] = []
         var total: Int = 0
+        var heroImageData: [Hero: Data] = [:]
     }
 
     enum Event {
-        enum Action {
-            case didAppear
-            case didPresentLast
-        }
-
-        case ui(Action)
+        case onAppear
+        case didPresentLast
         case initialize
         case loadHeros
         case didLoadSquad([Hero])
         case didLoadHeros([Hero], total: Int)
+        case didLoadImageData(Data, Hero)
         case didFailToLoadSquad
         case didFailToLoadAllHeros
     }
@@ -66,7 +65,7 @@ enum Root {
         case .initialize:
             return .init(value: .loadHeros)
 
-        case .ui(.didAppear):
+        case .onAppear:
             return environment.heroProvider.squadHeros()
                 .map(Event.didLoadSquad)
                 .replaceError(with: .didFailToLoadSquad)
@@ -96,12 +95,17 @@ enum Root {
             return nil
 
         case .didFailToLoadAllHeros:
+            state.status = .idle
             return nil
 
-        case .ui(.didPresentLast):
+        case .didPresentLast:
             return state.total > state.heros.count
                 ? .init(value: .loadHeros)
                 : nil
+
+        case let .didLoadImageData(data, hero):
+            state.heroImageData[hero] = data
+            return nil
         }
     }
 }
@@ -109,14 +113,15 @@ enum Root {
 extension Root.ViewModel {
     func heroViewModel(hero: Hero) -> Root.HeroElement.ViewModel {
         .init(
-            initialState: .init(hero: hero),
+            initialState: .init(hero: hero, image: self.heroImageData[hero]),
             reducer: Root.HeroElement.reducer,
             environment: .init(
                 imageData: environment.heroProvider.imageData,
                 mainQueue: environment.mainQueue,
                 onAppear: self.heros.isLastItem(hero)
-                    ? { [weak self] in self?.send(.ui(.didPresentLast)) }
-                    : nil
+                    ? { [weak self] in self?.send(.didPresentLast) }
+                    : nil,
+                didLoadImage: { [weak self] data, hero in self?.send(.didLoadImageData(data, hero)) }
             )
         )
     }
@@ -131,6 +136,7 @@ extension Root.ViewModel {
             environment: .init(
                 store: environment.heroProvider.store,
                 imageData: environment.heroProvider.imageData,
+                comicDetails: environment.heroProvider.comicDetails,
                 mainQueue: environment.mainQueue
             )
         )

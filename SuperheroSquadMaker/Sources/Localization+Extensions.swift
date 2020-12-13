@@ -1,10 +1,4 @@
-import Foundation
-
-enum Localization {
-    static func localizedName(_ key: String) -> String {
-        NSLocalizedString(key, bundle: Bundle.main, comment: "")
-    }
-}
+import Utils
 
 extension Localization {
     enum Root {

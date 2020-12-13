@@ -1,4 +1,5 @@
 import SwiftUI
+import Utils
 
 extension Root {
     struct ListHeroView: View {
@@ -27,7 +28,7 @@ extension Root {
                 Image(.arrow)
                     .padding(.horizontal, .medium)
             }
-            .onAppear { viewModel.send(.ui(.didAppear)) }
+            .onAppear { viewModel.send(.onAppear) }
         }
     }
 }

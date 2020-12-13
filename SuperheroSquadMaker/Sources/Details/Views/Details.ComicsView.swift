@@ -1,4 +1,5 @@
 import SwiftUI
+import Utils
 
 extension Details {
     struct ComicsView<Content: View>: View {

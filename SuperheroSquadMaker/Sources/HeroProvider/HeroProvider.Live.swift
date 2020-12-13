@@ -13,6 +13,13 @@ extension HeroProvider {
                     .catch { AnyPublisher<(heros: [Hero], total: Int), HeroProvider.Error>(Fail(error: .heroApi($0))) }
                     .eraseToAnyPublisher()
             },
+            comicDetails: { comic in
+                comicDetailsApi.get(Comic.Details.Resource(identifier: comic.identifier))
+                    .map(\.data.results.first)
+                    .compactMap { $0 }
+                    .catch { AnyPublisher<Comic.Details, HeroProvider.Error>(Fail(error: .comicDetailsApi($0))) }
+                    .eraseToAnyPublisher()
+            },
             squadHeros: {
                 squadCache.retrieve(kSquadCache)
                     .catch { AnyPublisher<[Hero], HeroProvider.Error>(Fail(error: .squadCache($0))) }

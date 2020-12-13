@@ -2,24 +2,23 @@ import CombineSchedulers
 import Combine
 import Utils
 
-extension Root {
-    enum HeroElement {
+extension Details {
+    enum ComicElement {
         typealias ViewModel = Utils.ViewModel<State, Event, Environment>
 
         struct State: Equatable {
-            let hero: Hero
+            let comic: Comic
             var image: Data?
         }
 
         struct Environment {
+            let comicDetails: (Comic) -> AnyPublisher<Comic.Details, HeroProvider.Error>
             let imageData: (String) -> AnyPublisher<Data, HeroProvider.Error>
             let mainQueue: AnySchedulerOf<DispatchQueue>
-            let onAppear: (() -> Void)?
-            let didLoadImage: (Data, Hero) -> Void
+            let didLoadImage: (Data, Comic) -> Void
         }
 
         enum Event {
-            case onAppear
             case initialize
             case didLoadImage(Data)
             case didFailToLoadImage
@@ -29,18 +28,15 @@ extension Root {
             switch event {
             case .initialize:
                 guard state.image == nil else { return nil }
-                return environment.imageData(state.hero.thumbnail.path(size: .small))
+                return environment.comicDetails(state.comic)
+                    .flatMap { environment.imageData($0.thumbnail.path(size: .portrait)) }
                     .map(Event.didLoadImage)
                     .replaceError(with: .didFailToLoadImage)
                     .receive(on: environment.mainQueue)
                     .eraseToAnyPublisher()
 
-            case .onAppear:
-                environment.onAppear?()
-                return nil
-
             case let .didLoadImage(data):
-                environment.didLoadImage(data, state.hero)
+                environment.didLoadImage(data, state.comic)
                 state.image = data
                 return nil
 

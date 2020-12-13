@@ -1,4 +1,5 @@
 import SwiftUI
+import Utils
 
 extension Root {
     struct ContentView: View {
@@ -25,22 +26,26 @@ extension Root {
                             }
                         }
 
-                        ForEach(viewModel.heros, id: \.self) { hero in
-                            NavigationLink(
-                                destination: Details.ContentView(viewModel.detailsViewModel(hero: hero))
-                            ) {
-                                Root.ListHeroView(viewModel: viewModel.heroViewModel(hero: hero))
-                            }
+                        if viewModel.heros.isNotEmpty {
+                            ForEach(viewModel.heros, id: \.self) { hero in
+                                NavigationLink(
+                                    destination: Details.ContentView(viewModel.detailsViewModel(hero: hero))
+                                ) {
+                                    ListHeroView(viewModel: viewModel.heroViewModel(hero: hero))
+                                }
                                 .buttonStyle(ListHeroViewButtonStyle())
                             }
+                        } else {
+                            ActivityIndicator()
+                        }
                     }
-                        .padding(.vertical, .medium)
+                    .padding(.vertical, .medium)
                 }
-                    .onAppear { viewModel.send(.ui(.didAppear)) }
-                    .navigationBarColor(.background)
-                    .navigationBarTitleDisplayMode(.inline)
-                    .toolbar { ToolbarItem(placement: .principal) { Image(.logo) } }
-                    .background(Color.background.ignoresSafeArea())
+                .onAppear { viewModel.send(.onAppear) }
+                .navigationBarColor(.background)
+                .navigationBarTitleDisplayMode(.inline)
+                .toolbar { ToolbarItem(placement: .principal) { Image(.logo) } }
+                .background(Color.background.ignoresSafeArea())
             }
         }
     }

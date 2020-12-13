@@ -1,23 +1,33 @@
 import SwiftUI
+import Utils
 
 extension Details {
     struct ComicView: View {
-        private let comic: Comic
+        @ObservedObject private var viewModel: ComicElement.ViewModel
 
-        init(comic: Comic) {
-            self.comic = comic
+        init(viewModel: ComicElement.ViewModel) {
+            self.viewModel = viewModel
+            viewModel.send(.initialize)
         }
 
         var body: some View {
             VStack {
-                Image(.logo)
-                    .resizable()
-                    .scaledToFit()
-                Text(comic.name)
+                Loading(viewModel.image) { data in
+                    Image.with(data)
+                        .resizable()
+                        .scaledToFit()
+                        .padding(.xSmall)
+                        .border(Color.white, width: .xSmall)
+                        .cornerRadius(.xSmall)
+                }
+
+                Text(viewModel.comic.name)
                     .font(.subheadline)
                     .fontWeight(.semibold)
                     .foregroundColor(.white)
                     .padding(.small)
+
+                Spacer()
             }
         }
     }

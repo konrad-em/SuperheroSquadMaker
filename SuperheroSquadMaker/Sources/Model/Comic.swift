@@ -1,6 +1,14 @@
 struct Comic: Codable, Equatable, Hashable {
     let name: String
     let resourceURI: String
+
+    var identifier: String? {
+        resourceURI.components(separatedBy: "/").last
+    }
+
+    struct Details: Codable {
+        let thumbnail: Thumbnail
+    }
 }
 
 #if DEBUG
@@ -12,6 +20,16 @@ extension Comic {
         .init(
             name: name,
             resourceURI: resourceURI
+        )
+    }
+}
+
+extension Comic.Details {
+    static func fixture(
+        thumbnail: Thumbnail = .fixture()
+    ) -> Self {
+        .init(
+            thumbnail: thumbnail
         )
     }
 }

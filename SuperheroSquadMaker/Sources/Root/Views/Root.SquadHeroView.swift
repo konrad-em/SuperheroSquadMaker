@@ -1,4 +1,5 @@
 import SwiftUI
+import Utils
 
 extension Root {
     struct SquadHeroView: View {
@@ -11,15 +12,22 @@ extension Root {
 
         var body: some View {
             VStack {
-                Image.with(viewModel.image)
-                    .resizable()
-                    .scaledToFill()
-                    .clipShape(Circle())
-                    .frame(width: .xLarge, height: .xLarge)
-                Text(viewModel.hero.name)
-                    .font(.footnote)
-                    .fontWeight(.bold)
-                    .foregroundColor(.white)
+                Loading(viewModel.image) { data in
+                    Image.with(data)
+                        .resizable()
+                        .scaledToFill()
+                        .clipShape(Circle())
+                        .frame(width: .xLarge, height: .xLarge)
+                }
+
+                VStack {
+                    Text(viewModel.hero.name)
+                        .font(.footnote)
+                        .fontWeight(.bold)
+                        .foregroundColor(.white)
+                    Spacer()
+                }
+                .frame(height: .large)
             }
             .frame(maxWidth: .xLarge)
         }
