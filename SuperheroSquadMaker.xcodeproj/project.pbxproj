@@ -135,6 +135,7 @@
 		A089A245257FF8D300611AC9 /* API.Interface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.Interface.swift; sourceTree = "<group>"; };
 		A089A249257FF91900611AC9 /* API.Live.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.Live.swift; sourceTree = "<group>"; };
 		A0BCBFAD2580CD7B00390D90 /* API.Mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.Mock.swift; sourceTree = "<group>"; };
+		A0CFBDC22586C59B00036639 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		A0CFE6A3258125EF00CDFFA4 /* Reducer+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Reducer+Extensions.swift"; sourceTree = "<group>"; };
 		A0CFE6BB258126BD00CDFFA4 /* Details.Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Details.Tests.swift; sourceTree = "<group>"; };
 		A0CFE6D9258126DE00CDFFA4 /* Details.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Details.swift; sourceTree = "<group>"; };
@@ -206,6 +207,7 @@
 		A0379E38257EDE90008C68C7 = {
 			isa = PBXGroup;
 			children = (
+				A0CFBDC22586C59B00036639 /* README.md */,
 				A0379E43257EDE91008C68C7 /* SuperheroSquadMaker */,
 				A0379E42257EDE91008C68C7 /* Products */,
 				A0379EEF257F80AE008C68C7 /* Frameworks */,
