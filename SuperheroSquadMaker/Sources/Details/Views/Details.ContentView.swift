@@ -28,7 +28,7 @@ extension Details {
                             .padding(.all, .medium)
 
                         Button(action: {
-                            viewModel.send(.ui(.didTapButton))
+                            viewModel.send(.ui(.didTapFireOrHireButton))
                         }) {
                             Text(
                                 viewModel.isSquadMember

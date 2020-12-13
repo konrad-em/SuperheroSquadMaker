@@ -27,7 +27,7 @@ enum Details {
     enum Event {
         enum Action {
             case didDismissAlert
-            case didTapButton
+            case didTapFireOrHireButton
             case didTapConfirm
         }
 
@@ -65,7 +65,7 @@ enum Details {
             state.image = nil
             return nil
 
-        case .ui(.didTapButton):
+        case .ui(.didTapFireOrHireButton):
             guard state.isSquadMember else {
                 state.squad.append(state.hero)
                 return .init(value: .storeSquad)
@@ -99,7 +99,7 @@ extension Details.ViewModel {
         .init(
             initialState: .init(comic: comic, image: self.comicImageData[comic]),
             reducer: Details.ComicElement.reducer,
-            environment: Details.ComicElement.Environment.init(
+            environment: .init(
                 comicDetails: environment.comicDetails,
                 imageData: environment.imageData,
                 mainQueue: environment.mainQueue,

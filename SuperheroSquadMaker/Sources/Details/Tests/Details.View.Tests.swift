@@ -6,7 +6,7 @@ import SnapshotTesting
 @testable import SuperheroSquadMaker
 
 class DetailsViewTests: XCTestCase {
-    func test_hero_in_the_squad() {
+    func testHeroInTheSquad() {
         verify(
             state: .init(
                 hero: .fixture(),
@@ -17,7 +17,7 @@ class DetailsViewTests: XCTestCase {
         )
     }
 
-    func test_hero_not_in_the_squad() {
+    func testHeroNotInTheSquad() {
         verify(
             state: .init(
                 hero: .fixture(),
@@ -28,7 +28,7 @@ class DetailsViewTests: XCTestCase {
         )
     }
 
-    func test_loading_comics() {
+    func testLoadingComics() {
         verify(
             state: .init(
                 hero: .fixture(),

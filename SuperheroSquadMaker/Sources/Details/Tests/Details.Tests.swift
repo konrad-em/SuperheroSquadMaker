@@ -4,8 +4,6 @@ import CombineSchedulers
 import Utils
 @testable import SuperheroSquadMaker
 
-struct FakeError: Error { }
-
 class DetailsTests: XCTestCase {
     func testHappyPath() {
         var imageData: [Data] = [.fixture(), .fixture(bytes: [])]
@@ -37,8 +35,8 @@ class DetailsTests: XCTestCase {
         when: { viewModel, scheduler in
             viewModel.send(.onAppear)
             scheduler.advance()
-            viewModel.send(.ui(.didTapButton))
-            viewModel.send(.ui(.didTapButton))
+            viewModel.send(.ui(.didTapFireOrHireButton))
+            viewModel.send(.ui(.didTapFireOrHireButton))
             viewModel.send(.ui(.didTapConfirm))
             scheduler.advance()
             viewModel.send(.ui(.didDismissAlert))
@@ -87,8 +85,8 @@ class DetailsTests: XCTestCase {
         when: { viewModel, scheduler in
             viewModel.send(.onAppear)
             scheduler.advance()
-            viewModel.send(.ui(.didTapButton))
-            viewModel.send(.ui(.didTapButton))
+            viewModel.send(.ui(.didTapFireOrHireButton))
+            viewModel.send(.ui(.didTapFireOrHireButton))
             viewModel.send(.ui(.didTapConfirm))
             scheduler.advance()
             viewModel.send(.ui(.didDismissAlert))
@@ -107,7 +105,7 @@ class DetailsTests: XCTestCase {
     }
 }
 
-extension Details.ViewModel {
+private extension Details.ViewModel {
     convenience init(
         initialState: State = .init(
             hero: .fixture(),

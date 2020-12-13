@@ -11,7 +11,7 @@ class RootViewTests: XCTestCase {
         Hero.fixture(id: 1): Data.fakeImage
     ]
 
-    func test_loading_with_squad() {
+    func testLoadingWithSquad() {
         verify(
             state: .init(
                 status: .loading,
@@ -21,7 +21,7 @@ class RootViewTests: XCTestCase {
         )
     }
 
-    func test_loading_without_squad() {
+    func testLoadingWithoutSquad() {
         verify(
             state: .init(
                 status: .loading,
@@ -30,7 +30,7 @@ class RootViewTests: XCTestCase {
         )
     }
 
-    func test_idle_with_squad() {
+    func testIdleWithSquad() {
         verify(
             state: .init(
                 status: .idle,
@@ -41,7 +41,7 @@ class RootViewTests: XCTestCase {
         )
     }
 
-    func test_idle_without_squad() {
+    func testIdleWithoutSquad() {
         verify(
             state: .init(
                 status: .idle,

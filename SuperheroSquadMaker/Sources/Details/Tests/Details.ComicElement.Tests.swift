@@ -77,7 +77,7 @@ class DetailsComicElementTests: XCTestCase {
     }
 }
 
-extension Details.ComicElement.ViewModel {
+private extension Details.ComicElement.ViewModel {
     convenience init(
         initialState: State = .init(comic: .fixture()),
         environment: Environment

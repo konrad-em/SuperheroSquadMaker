@@ -95,7 +95,7 @@ class RootTests: XCTestCase {
     }
 }
 
-extension Root.ViewModel {
+private extension Root.ViewModel {
     convenience init(
         initialState: State = .init(),
         environment: Environment

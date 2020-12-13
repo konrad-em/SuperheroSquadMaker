@@ -13,7 +13,7 @@ extension Thumbnail {
     }
 
     func path(size: Size) -> String {
-        "\(path)/" + "\(size.rawValue)." + "\(`extension`)"
+        "\(path)/\(size.rawValue).\(`extension`)"
     }
 }
 

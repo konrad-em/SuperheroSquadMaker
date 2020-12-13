@@ -70,7 +70,7 @@ class RootHeroElementTests: XCTestCase {
     }
 }
 
-extension Root.HeroElement.ViewModel {
+private extension Root.HeroElement.ViewModel {
     convenience init(
         initialState: State = .init(hero: .fixture()),
         environment: Environment

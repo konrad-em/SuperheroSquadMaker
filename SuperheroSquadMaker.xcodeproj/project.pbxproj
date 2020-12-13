@@ -68,6 +68,7 @@
 		A0D9FEB2258684F9001C26BD /* Image+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D9FC0F258394FE001C26BD /* Image+Extensions.swift */; };
 		A0D9FEB725868513001C26BD /* View+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D9FD7E2583EC3A001C26BD /* View+Extensions.swift */; };
 		A0D9FEBD25868659001C26BD /* Data+Fixture.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0D9FEBC25868659001C26BD /* Data+Fixture.swift */; };
+		A0F6A5332586BF22000A2A22 /* FakeError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0F6A5322586BF22000A2A22 /* FakeError.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -164,6 +165,7 @@
 		A0D9FE9D2586823E001C26BD /* Loading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Loading.swift; sourceTree = "<group>"; };
 		A0D9FEBC25868659001C26BD /* Data+Fixture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+Fixture.swift"; sourceTree = "<group>"; };
 		A0DF450825829D4800134034 /* Data.Resource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Data.Resource.swift; sourceTree = "<group>"; };
+		A0F6A5322586BF22000A2A22 /* FakeError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeError.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -323,6 +325,7 @@
 				A0379F56257FA72E008C68C7 /* XCTestCase+Extensions.swift */,
 				A0CFE6A3258125EF00CDFFA4 /* Reducer+Extensions.swift */,
 				A0D9FEBC25868659001C26BD /* Data+Fixture.swift */,
+				A0F6A5322586BF22000A2A22 /* FakeError.swift */,
 			);
 			path = TestUtils;
 			sourceTree = "<group>";
@@ -700,6 +703,7 @@
 				A0D9FE8625867BD7001C26BD /* Details.View.Tests.swift in Sources */,
 				A0D9FD102583BC73001C26BD /* Details.Tests.swift in Sources */,
 				A0D9FE8025867B26001C26BD /* Details.ComicElement.Tests.swift in Sources */,
+				A0F6A5332586BF22000A2A22 /* FakeError.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
