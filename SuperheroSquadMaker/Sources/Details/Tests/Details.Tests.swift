@@ -4,11 +4,7 @@ import CombineSchedulers
 import Utils
 @testable import SuperheroSquadMaker
 
-extension Data {
-    static func fixture(bytes: [UInt8] = [0xFF, 0xFF]) -> Self {
-        return .init(bytes: bytes, count: bytes.count)
-    }
-}
+struct FakeError: Error { }
 
 class DetailsTests: XCTestCase {
     func testHappyPath() {
@@ -33,12 +29,13 @@ class DetailsTests: XCTestCase {
                 environment: .init(
                     store: heroProviderMock.store,
                     imageData: heroProviderMock.imageData,
+                    comicDetails: heroProviderMock.comicDetails,
                     mainQueue: scheduler
                 )
             )
         }
         when: { viewModel, scheduler in
-            viewModel.send(.ui(.didAppear))
+            viewModel.send(.onAppear)
             scheduler.advance()
             viewModel.send(.ui(.didTapButton))
             viewModel.send(.ui(.didTapButton))
@@ -55,6 +52,54 @@ class DetailsTests: XCTestCase {
                 .init(hero: .fixture(), image: .fixture(), squad: [.fixture()], isPresentingAlert: true),
                 .init(hero: .fixture(), image: .fixture(), squad: [], isPresentingAlert: true),
                 .init(hero: .fixture(), image: .fixture(), squad: [])
+            ])
+            XCTAssertEqual(didGetImageDataCount, 2)
+            XCTAssertEqual(didStoreSquadCount, 2)
+        }
+    }
+
+    func testErrorPath() {
+        var didGetImageDataCount: Int = 0
+        var didStoreSquadCount: Int = 0
+        let heroProviderMock = HeroProvider.mock(
+            store: { _ in
+                didStoreSquadCount += 1
+                return Fail(error: HeroProvider.Error.squadCache(.unableToStore(FakeError())))
+                    .eraseToAnyPublisher()
+            },
+            imageData: { _ in
+                didGetImageDataCount += 1
+                return Fail(error: HeroProvider.Error.imageCache(.unableToRetrieve(FakeError())))
+                    .eraseToAnyPublisher()
+            }
+        )
+
+        given { scheduler in
+            Details.ViewModel(
+                environment: .init(
+                    store: heroProviderMock.store,
+                    imageData: heroProviderMock.imageData,
+                    comicDetails: heroProviderMock.comicDetails,
+                    mainQueue: scheduler
+                )
+            )
+        }
+        when: { viewModel, scheduler in
+            viewModel.send(.onAppear)
+            scheduler.advance()
+            viewModel.send(.ui(.didTapButton))
+            viewModel.send(.ui(.didTapButton))
+            viewModel.send(.ui(.didTapConfirm))
+            scheduler.advance()
+            viewModel.send(.ui(.didDismissAlert))
+        }
+        then: { states in
+            XCTAssertEqual(states, [
+                .init(hero: .fixture(), squad: []),
+                .init(hero: .fixture(), squad: [.fixture()]),
+                .init(hero: .fixture(), squad: [.fixture()], isPresentingAlert: true),
+                .init(hero: .fixture(), squad: [], isPresentingAlert: true),
+                .init(hero: .fixture(), squad: [])
             ])
             XCTAssertEqual(didGetImageDataCount, 2)
             XCTAssertEqual(didStoreSquadCount, 2)

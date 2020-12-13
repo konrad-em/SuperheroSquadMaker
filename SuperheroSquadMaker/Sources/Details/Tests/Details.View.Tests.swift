@@ -10,8 +10,9 @@ class DetailsViewTests: XCTestCase {
         verify(
             state: .init(
                 hero: .fixture(),
-                image: UIImage(named: "detail")!.jpegData(compressionQuality: 1),
-                squad: [.fixture()]
+                image: .fakeImage,
+                squad: [.fixture()],
+                comicImageData: [.fixture(): .fakeImage]
             )
         )
     }
@@ -20,7 +21,18 @@ class DetailsViewTests: XCTestCase {
         verify(
             state: .init(
                 hero: .fixture(),
-                image: UIImage(named: "detail")!.jpegData(compressionQuality: 1),
+                image: .fakeImage,
+                squad: [],
+                comicImageData: [.fixture(): .fakeImage]
+            )
+        )
+    }
+
+    func test_loading_comics() {
+        verify(
+            state: .init(
+                hero: .fixture(),
+                image: .fakeImage,
                 squad: []
             )
         )
@@ -60,6 +72,7 @@ extension Details.Environment {
         .init(
             store: HeroProvider.mock().store,
             imageData: HeroProvider.mock().imageData,
+            comicDetails: HeroProvider.mock().comicDetails,
             mainQueue: DispatchQueue.main.eraseToAnyScheduler()
         )
     }

@@ -6,17 +6,28 @@ import SnapshotTesting
 @testable import SuperheroSquadMaker
 
 class RootViewTests: XCTestCase {
+    private let heroToImageData = [
+        Hero.fixture(): Data.fakeImage,
+        Hero.fixture(id: 1): Data.fakeImage
+    ]
+
     func test_loading_with_squad() {
         verify(
             state: .init(
                 status: .loading,
-                squad: [.fixture()]
+                squad: [.fixture()],
+                heroImageData: heroToImageData
             )
         )
     }
 
     func test_loading_without_squad() {
-        verify(state: .init(status: .loading))
+        verify(
+            state: .init(
+                status: .loading,
+                heroImageData: heroToImageData
+            )
+        )
     }
 
     func test_idle_with_squad() {
@@ -24,7 +35,8 @@ class RootViewTests: XCTestCase {
             state: .init(
                 status: .idle,
                 squad: [.fixture()],
-                heros: [.fixture(), .fixture(id: 1)]
+                heros: [.fixture(), .fixture(id: 1)],
+                heroImageData: heroToImageData
             )
         )
     }
@@ -34,7 +46,8 @@ class RootViewTests: XCTestCase {
             state: .init(
                 status: .idle,
                 squad: [],
-                heros: [.fixture(), .fixture(id: 1)]
+                heros: [.fixture(), .fixture(id: 1)],
+                heroImageData: heroToImageData
             )
         )
     }
