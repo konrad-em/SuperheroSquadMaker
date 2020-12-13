@@ -35,6 +35,8 @@ This approach results in a unidirectional data flow, that comes with several ben
 Any component should be created in a way that it be easily reused across the application, or even in other applications. Large features should be built with smaller components that can be extracted to their own, isolated modules and be easily glued back together to form the feature.
 
 I decided to use MVVM architecture and with unidirectional data flow inside ViewModel layer. I think it fits SwiftUI declarative approach quite well.
+
+I'm not a fan of the way SwiftUI handles navigation, I think view should not be aware of navigation, nor be responsible for creating new view models, etc. Nonetheless, all of the solutions for it feel a bit hacky, so I decided I will not fight the system and used the standard SwiftUI approach.
  
 ## Dependencies
 I decided to keep the generic code in the Utilities framework that is imported by the SuperheroSquadMaker target. For the more complex app, I would prefer it more modular, each feature ideally living in its own module.
