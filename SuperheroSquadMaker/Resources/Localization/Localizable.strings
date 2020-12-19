@@ -1,0 +1,9 @@
+"root.squad.title" = "My Squad";
+"details.hire" = "💪 Recruit to Squad";
+"details.fire" = "🔥 Fire from Squad";
+"details.lastAppearance" = "Last appeared in";
+"details.delete" = "Delete";
+"details.cancel" = "Cancel";
+"details.confirm" = "Do you want to fire %@?";
+"details.andOneOtherComic" = "and 1 other comic";
+"details.andOtherComics" = "and %d other comics";
